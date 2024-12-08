@@ -322,8 +322,9 @@ function selectMany(arr, childrenSelector) {
  *   calculateBalance([ [ 10, 8 ], [ 1, 5 ] ])  => (10 - 8) + (1 - 5) = 2 + -4 = -2
  *   calculateBalance([]) => 0
  */
-function calculateBalance(/* arr */) {
-  throw new Error('Not implemented');
+function calculateBalance(arr) {
+  const monthBalance = arr.map((el) => el[0] - el[1]);
+  return monthBalance.reduce((acc, cur) => acc + cur);
 }
 
 /**
@@ -375,8 +376,12 @@ function generateOdds(len) {
  *   getElementByIndices(['one','two','three'], [2]) => 'three'  (arr[2])
  *   getElementByIndices([[[ 1, 2, 3]]], [ 0, 0, 1 ]) => 2        (arr[0][0][1])
  */
-function getElementByIndices(/* arr, indices */) {
-  throw new Error('Not implemented');
+function getElementByIndices(arr, indices) {
+  const index = indices.shift();
+  if (indices.length === 0) {
+    return arr[index];
+  }
+  return getElementByIndices(arr[index], indices);
 }
 
 /**
@@ -507,8 +512,16 @@ function findCommonElements(arr1, arr2) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  let counter = 1;
+  return nums.reduce((acc, el, i, arr) => {
+    if (i > 0 && el > arr[i - 1]) {
+      counter += 1;
+    } else {
+      counter = 1;
+    }
+    return Math.max(acc, counter);
+  }, 1);
 }
 
 /**
